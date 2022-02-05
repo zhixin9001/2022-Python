@@ -45,6 +45,20 @@ dicts={'a':'a'}
 #     # json.dump(sports,f)
 #     json.dump(dicts,f)
 
-with open('3/test.json') as f:
-    # print(f.read())
-    print(json.load(f))
+# with open('3/test.json') as f:
+#     # print(f.read())
+#     print(json.load(f))
+
+### unit test
+def format_name(first_name, last_name):
+    name=f'{first_name} {last_name}'
+    return name.title()
+
+import unittest
+class NamesTest(unittest.TestCase):
+    def test1(self):
+        name=format_name('Joda', 'link')
+        self.assertEqual(name, 'Joda Link')
+
+if __name__=='__main__':
+    unittest.main()
