@@ -72,13 +72,14 @@ def get_name(first_name, last_name):
 # make_pizza(12,'a','b','c') # override
 
 ### class
-# from dog import *
+from dog import *
 
 # my_dog=Dog('kit',6)
+my_dog=Dog()
 # my_dog.name='dogge'
 # # print(my_dog.name)
 # my_dog.roll_over()
-# my_dog.sit()
+my_dog.sit()
 
 # black_dog=BlackDog('bob',9)
 # black_dog.roll_over()
