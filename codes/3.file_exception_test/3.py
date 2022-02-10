@@ -50,15 +50,15 @@
 #     print(json.load(f))
 
 ### unit test
-def format_name(first_name, last_name):
-    name=f'{first_name} {last_name}'
-    return name.title()
+# def format_name(first_name, last_name):
+#     name=f'{first_name} {last_name}'
+#     return name.title()
 
-import unittest
-class NamesTest(unittest.TestCase):
-    def test1(self):
-        name=format_name('Joda', 'link')
-        self.assertEqual(name, 'Joda Link')
+# import unittest
+# class NamesTest(unittest.TestCase):
+#     def test1(self):
+#         name=format_name('Joda', 'link')
+#         self.assertEqual(name, 'Joda Link')
 
-if __name__=='__main__':
-    unittest.main()
+# if __name__=='__main__':
+#     unittest.main()
