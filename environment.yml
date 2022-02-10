@@ -4,3 +4,4 @@ dependencies:
     - ipykernel
     - matplotlib
     - plotly
+    - requests
