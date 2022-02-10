@@ -1,20 +1,20 @@
-with open('3/pi.txt') as file_obj:
-with open('/Users/zhixin/Personal/2022-Python/codes/3/pi.txt') as file_obj:
-    contents=file_obj.read()
-print(contents)
+# with open('3/pi.txt') as file_obj:
+# with open('/Users/zhixin/Personal/2022-Python/codes/3/pi.txt') as file_obj:
+#     contents=file_obj.read()
+# print(contents)
 
-with open('3/pi.txt') as file_obj:
-    for line in file_obj:
-        print(line.rstrip())
-    lines=file_obj.readlines()
+# with open('3/pi.txt') as file_obj:
+#     for line in file_obj:
+#         print(line.rstrip())
+#     lines=file_obj.readlines()
 
-for line in lines:
-    print(line.rstrip())
+# for line in lines:
+#     print(line.rstrip())
 
-with open('3/write.txt', 'w') as file_obj:
-    file_obj.write('I love python\n')
-    file_obj.write('I love python\n')
-    file_obj.write('I love python\n')
+# with open('3/write.txt', 'w') as file_obj:
+#     file_obj.write('I love python\n')
+#     file_obj.write('I love python\n')
+#     file_obj.write('I love python\n')
 
 ### exception
 # try:
@@ -34,12 +34,12 @@ with open('3/write.txt', 'w') as file_obj:
 #     print("zero can't divide")
 # finally:
 #     print('end')
-#     raise
+#     raise BaseException
 
 ### json
-import json
-sports=['a','b','c']
-dicts={'a':'a'}
+# import json
+# sports=['a','b','c']
+# dicts={'a':'a'}
 
 # with open('3/test.json','w') as f:
 #     # json.dump(sports,f)
