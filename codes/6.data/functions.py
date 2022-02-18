@@ -1,5 +1,6 @@
 import csv
 import matplotlib.pyplot as plt
+import math
 
 
 def get_data(csv_path):
@@ -38,18 +39,16 @@ def draw_bar(x, y):
     plt.show()
 
 
-def get_diff_count(diffs):
-    diff_count = {'0-10': 0, '10-20': 0, '20-30': 0,
-                  '30-40': 0, '40-50': 0, '50-60': 0}
-    diff_count['0-10'] = (len(list(filter(lambda x: x >=
-                          0 and x < 10, diffs))))
-    diff_count['10-20'] = (len(list(filter(lambda x: x >=
-                           10 and x < 20, diffs))))
-    diff_count['20-30'] = (len(list(filter(lambda x: x >=
-                                           20 and x < 30, diffs))))
-    diff_count['30-40'] = (len(list(filter(lambda x: x >=
-                                           30 and x < 40, diffs))))
-    diff_count['40-50'] = (len(list(filter(lambda x: x >=
-                                           40 and x < 50, diffs))))
-    diff_count['50-60'] = (len(list(filter(lambda x: x >= 50, diffs))))
+def get_diff_count(diffs, step=10):
+    max_value = (max(diffs))
+    x_nums = math.ceil(max_value/step)
+    diff_count = {}
+    for index in range(0, x_nums):
+        diff_count[f'{index*step}-{(index+1)*step}'] = 0
+
+    for index in range(0, x_nums):
+        start = index*step
+        end = (index+1)*step
+        diff_count[f'{start}-{end}'] = (len(list(filter(lambda x: x >=
+                                                        start and x < end, diffs))))
     return diff_count
