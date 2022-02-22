@@ -84,6 +84,7 @@ def get_reds_4area(reds):
         dic_case[key] = value+1
     return dic_case
 
+
 def get_ac_count(inputs, nums):
     ac_count = {}
     for bolls in inputs:
@@ -95,6 +96,7 @@ def get_ac_count(inputs, nums):
         count = ac_count.get(ac, 0)
         ac_count[ac] = count+1
     return ac_count
+
 
 def draw_plot(sums, avgs, color='red'):
     fig, ax = plt.subplots(figsize=(18, 3))
