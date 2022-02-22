@@ -121,6 +121,7 @@ def get_hot(data, nums=35):
             dic_hot[ball] += 1
     return dic_hot
 
+
 def get_all_5degrees(prefers):
     results = []
     count = len(prefers)
@@ -132,6 +133,7 @@ def get_all_5degrees(prefers):
                         results.append(
                             (prefers[i], prefers[j], prefers[k], prefers[l], prefers[m]))
     return results
+
 
 def sum_filter(source, avg=90, diff=10):
     result = list(filter(lambda x: abs(sum(x)-avg) <= diff, source))
