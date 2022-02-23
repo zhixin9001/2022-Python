@@ -58,9 +58,28 @@ class FunctionsTest(unittest.TestCase):
     def test_get_all_5degrees(self):
         prefers = [1, 2, 3, 4, 5, 6]
         results = func.get_all_5degrees(prefers)
-        print(results)
         self.assertEqual(results, [(1, 2, 3, 4, 5), (1, 2, 3, 4, 6), (
             1, 2, 3, 5, 6), (1, 2, 4, 5, 6), (1, 3, 4, 5, 6), (2, 3, 4, 5, 6)])
+
+    def test_sum_filter(self):
+        reds = [[7, 11, 19, 24, 30], [1, 2, 3, 4, 5], [35, 34, 33, 32, 31]]
+        result = func.sum_filter(reds)
+        self.assertEqual(result, [[7, 11, 19, 24, 30]])
+
+    def test_area3_filter(self):
+        reds = [[7, 11, 19, 24, 30], [1, 2, 3, 4, 5], [35, 34, 33, 32, 31]]
+        result = func.area3_filter(reds)
+        self.assertEqual(result, [[7, 11, 19, 24, 30]])
+
+    def test_area4_filter(self):
+        reds = [[7, 11, 19, 24, 30], [1, 2, 3, 4, 5], [35, 34, 33, 32, 31]]
+        result = func.area4_filter(reds)
+        self.assertEqual(result, [[7, 11, 19, 24, 30]])
+
+    def test_ac_filter(self):
+        reds = [[7, 11, 19, 24, 30], [1, 2, 3, 4, 5], [35, 34, 33, 32, 31]]
+        result = func.ac_filter(reds)
+        self.assertEqual(result, [[7, 11, 19, 24, 30]])
 
 
 if __name__ == '__main__':
