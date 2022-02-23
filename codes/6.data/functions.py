@@ -9,13 +9,16 @@ def get_data(csv_path):
         next(csv_reader)
         counter = 1
         reds, blues, red_blues = [], [], []
-        while counter <= 800:
-            row = next(csv_reader)
-            splited = row[2].split()
-            red_blues.append(list(map(int, splited)))
-            reds.append(list(map(int, splited[:-2])))
-            blues.append(list(map(int, splited[-2:])))
-            counter += 1
+        while True:
+            try:
+                row = next(csv_reader)
+                splited = row[2].split()
+                red_blues.append(list(map(int, splited)))
+                reds.append(list(map(int, splited[:-2])))
+                blues.append(list(map(int, splited[-2:])))
+                counter += 1
+            except StopIteration:
+                break
     return (reds, blues, red_blues)
 
 
