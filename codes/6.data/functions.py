@@ -1,7 +1,8 @@
 import csv
-import matplotlib.pyplot as plt
 import math
-
+import requests
+import matplotlib.pyplot as plt
+plt.style.use('seaborn-whitegrid')
 
 def get_data(csv_path):
     with open(csv_path) as f:
@@ -20,6 +21,23 @@ def get_data(csv_path):
             except StopIteration:
                 break
     return (reds, blues, red_blues)
+
+
+def get_data_from_api(no=''):
+    url = f'http://apis.juhe.cn/lottery/query?lottery_id=dlt&lottery_no={no}&key=9365405c5ef92ff40339fe6af9e73bdb'
+    res = requests.get(url).json()
+    result = res['result']
+    prize = result['lottery_prize']
+    balls = result['lottery_res'].replace(',', ' ')
+
+    return [int(result['lottery_no']),
+            result['lottery_date'],
+            balls,
+            prize[0]['prize_num'],
+            prize[1]['prize_num'],
+            prize[2]['prize_num'],
+            prize[3]['prize_num'],
+            prize[4]['prize_num']]
 
 
 def get_sum_avg_diff(source, avg_total):
@@ -87,6 +105,31 @@ def get_reds_4area(reds):
         dic_case[key] = value+1
     return dic_case
 
+
+def get_reds_5area(reds):
+    area1 = list(range(1, 8))
+    area2 = list(range(8, 15))
+    area3 = list(range(15, 22))
+    area4 = list(range(22, 29))
+    area5 = list(range(29, 36))  
+    dic_case = {}
+    for red in reds:
+        area1_count, area2_count, area3_count, area4_count, area5_count = 0, 0, 0, 0,0
+        for boll in red:
+            if (boll in area1):
+                area1_count += 1
+            elif boll in area2:
+                area2_count += 1
+            elif boll in area3:
+                area3_count += 1
+            elif boll in area4:
+                area4_count += 1
+            elif boll in area5:
+                area5_count += 1
+        key = f'{area1_count}-{area2_count}-{area3_count}-{area4_count}-{area5_count}'
+        value = dic_case.get(key, 0)
+        dic_case[key] = value+1
+    return dic_case
 
 def get_ac_count(inputs, nums):
     ac_count = {}
@@ -202,15 +245,43 @@ def ac_filter(source):
     return filtered
 
 
-def draw_sum_plot(sums, avgs, color='red'):
+def sync_current_csv(latest_no):
+
+    current_csv = 'current.csv'
+    with open(current_csv, 'r') as readFile:
+        rd = csv.reader(readFile)
+        next(rd)
+        row1 = next(rd)
+        oldest_no = int(row1[0])
+    if latest_no == oldest_no:
+        print('####### Data is new ###########')
+    elif latest_no < oldest_no:
+        raise BaseException('!!!!!! Data is wrong !!!!!!')
+    else:
+        with open(current_csv, 'r') as readFile:
+            rd = csv.reader(readFile)
+            lines = list(rd)
+
+            for no in range(oldest_no+1, latest_no+1):
+                selected_res = get_data_from_api(no)
+                lines.insert(1, selected_res)
+        with open(current_csv, 'w', newline='') as writeFile:
+            wt = csv.writer(writeFile)
+            wt.writerows(lines)
+        print(f'Synced data of period(s): {latest_no-oldest_no}')
+
+
+def draw_sum_plot(sums, avgs, color='red', title=''):
     fig, ax = plt.subplots(figsize=(18, 3))
+    ax.set(title=title)
     ax.plot(sums, color=color)
     ax.plot(avgs, color='gray')
     plt.show()
 
 
-def draw_plot(data):
+def draw_plot(data,title=''):
     fig, ax = plt.subplots(figsize=(18, 3))
+    ax.set(title=title)
     ax.plot(data)
     plt.show()
 

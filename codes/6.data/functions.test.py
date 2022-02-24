@@ -4,10 +4,10 @@ import functions as func
 
 class FunctionsTest(unittest.TestCase):
     def test_get_data(self):
-        reds, blues, red_blues = func.get_data('./1.csv')
-        self.assertEqual(len(reds), 800)
-        self.assertEqual(len(blues), 800)
-        self.assertEqual(len(red_blues), 800)
+        reds, blues, red_blues = func.get_data('./history.csv')
+        self.assertEqual(len(reds), 2229)
+        self.assertEqual(len(blues), 2229)
+        self.assertEqual(len(red_blues), 2229)
         self.assertEqual(len(reds[0]), 5)
         self.assertEqual(len(blues[0]), 2)
         self.assertEqual(len(red_blues[0]), 7)
@@ -37,6 +37,12 @@ class FunctionsTest(unittest.TestCase):
         dic_case = func.get_reds_4area(reds)
         self.assertEqual(dic_case,
                          {'1-1-1-2': 1, '3-2-0-0': 1, '0-0-3-2': 1})
+
+    def test_get_reds_5area(self):
+        reds = [[7, 11, 19, 24, 30], [1, 2, 3, 4, 5], [35, 34, 33, 32, 31]]
+        dic_case = func.get_reds_5area(reds)
+        self.assertEqual(dic_case,{'1-1-1-1-1': 1, '5-0-0-0-0': 1, '0-0-0-0-5': 1})
+
 
     def test_get_ac_count(self):
         reds = [[7, 11, 19, 24, 30], [1, 2, 3, 4, 5], [35, 34, 33, 32, 31]]
@@ -80,7 +86,7 @@ class FunctionsTest(unittest.TestCase):
         reds = [[7, 11, 19, 24, 30], [1, 2, 3, 4, 5], [35, 34, 33, 32, 31]]
         result = func.ac_filter(reds)
         self.assertEqual(result, [[7, 11, 19, 24, 30]])
-
+    
 
 if __name__ == '__main__':
     unittest.main()
