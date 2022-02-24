@@ -131,6 +131,32 @@ def get_reds_5area(reds):
         dic_case[key] = value+1
     return dic_case
 
+
+def get_reds_5area1(reds):
+    area1 = list(range(1, 8))
+    area2 = list(range(8, 15))
+    area3 = list(range(15, 22))
+    area4 = list(range(22, 29))
+    area5 = list(range(29, 36))  
+    result = []
+    for red in reds:
+        area1_count, area2_count, area3_count, area4_count, area5_count = 0, 0, 0, 0,0
+        for boll in red:
+            if (boll in area1):
+                area1_count += 1
+            elif boll in area2:
+                area2_count += 1
+            elif boll in area3:
+                area3_count += 1
+            elif boll in area4:
+                area4_count += 1
+            elif boll in area5:
+                area5_count += 1
+        area_result =[area1_count,area2_count,area3_count,area4_count,area5_count]
+        result.append(area_result)
+    return result
+
+
 def get_ac_count(inputs, nums):
     ac_count = {}
     for bolls in inputs:
