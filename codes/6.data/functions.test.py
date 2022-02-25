@@ -41,8 +41,13 @@ class FunctionsTest(unittest.TestCase):
     def test_get_reds_5area(self):
         reds = [[7, 11, 19, 24, 30], [1, 2, 3, 4, 5], [35, 34, 33, 32, 31]]
         dic_case = func.get_reds_5area(reds)
-        self.assertEqual(dic_case,{'1-1-1-1-1': 1, '5-0-0-0-0': 1, '0-0-0-0-5': 1})
+        self.assertEqual(
+            dic_case, {'1-1-1-1-1': 1, '5-0-0-0-0': 1, '0-0-0-0-5': 1})
 
+    def test_area5_filter(self):
+        reds = [[7, 11, 19, 24, 30], [1, 2, 3, 4, 5], [35, 34, 33, 32, 31]]
+        result = func.area5_filter(reds)
+        self.assertEqual(result, [[7, 11, 19, 24, 30]])
 
     def test_get_ac_count(self):
         reds = [[7, 11, 19, 24, 30], [1, 2, 3, 4, 5], [35, 34, 33, 32, 31]]
@@ -86,7 +91,7 @@ class FunctionsTest(unittest.TestCase):
         reds = [[7, 11, 19, 24, 30], [1, 2, 3, 4, 5], [35, 34, 33, 32, 31]]
         result = func.ac_filter(reds)
         self.assertEqual(result, [[7, 11, 19, 24, 30]])
-    
+
 
 if __name__ == '__main__':
     unittest.main()

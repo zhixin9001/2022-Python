@@ -4,6 +4,7 @@ import requests
 import matplotlib.pyplot as plt
 plt.style.use('seaborn-whitegrid')
 
+
 def get_data(csv_path):
     with open(csv_path) as f:
         csv_reader = csv.reader(f)
@@ -62,99 +63,115 @@ def get_diff_count(diffs, step=10):
     return diff_count
 
 
-def get_reds_3area(reds):
+def get_3area_key(red):
     area1 = list(range(1, 13))
     area2 = list(range(13, 25))
     area3 = list(range(25, 36))
+    area1_count, area2_count, area3_count = 0, 0, 0
+    for boll in red:
+        if (boll in area1):
+            area1_count += 1
+        elif boll in area2:
+            area2_count += 1
+        elif boll in area3:
+            area3_count += 1
+    return f'{area1_count}-{area2_count}-{area3_count}'
+
+
+def get_reds_3area(reds):
     dic_case = {}
     for red in reds:
-        area1_count, area2_count, area3_count = 0, 0, 0
-        for boll in red:
-            if (boll in area1):
-                area1_count += 1
-            elif boll in area2:
-                area2_count += 1
-            elif boll in area3:
-                area3_count += 1
-        key = f'{area1_count}-{area2_count}-{area3_count}'
+        key = get_3area_key(red)
         value = dic_case.get(key, 0)
         dic_case[key] = value+1
     return dic_case
 
 
-def get_reds_4area(reds):
+def area3_filter(source):
+    pattern = ['2-1-2', '2-2-1', '1-2-2']
+    filtered = []
+    for row in source:
+        key = get_3area_key(row)
+        if key in pattern:
+            filtered.append(row)
+    return filtered
+
+
+def get_4area_key(red):
     area1 = [1, 2, 3, 7, 8, 9, 13, 14, 15]
     area2 = [4, 5, 6, 10, 11, 12, 16, 17, 18]
     area3 = [19, 20, 21, 25, 26, 27, 31, 32, 33]
     area4 = [22, 23, 24, 28, 29, 30, 34, 35]
+    area1_count, area2_count, area3_count, area4_count = 0, 0, 0, 0
+    for boll in red:
+        if (boll in area1):
+            area1_count += 1
+        elif boll in area2:
+            area2_count += 1
+        elif boll in area3:
+            area3_count += 1
+        elif boll in area4:
+            area4_count += 1
+    return f'{area1_count}-{area2_count}-{area3_count}-{area4_count}'
 
+
+def get_reds_4area(reds):
     dic_case = {}
     for red in reds:
-        area1_count, area2_count, area3_count, area4_count = 0, 0, 0, 0
-        for boll in red:
-            if (boll in area1):
-                area1_count += 1
-            elif boll in area2:
-                area2_count += 1
-            elif boll in area3:
-                area3_count += 1
-            elif boll in area4:
-                area4_count += 1
-        key = f'{area1_count}-{area2_count}-{area3_count}-{area4_count}'
+        key = get_4area_key(red)
         value = dic_case.get(key, 0)
         dic_case[key] = value+1
     return dic_case
+
+
+def area4_filter(source):
+    pattern = ['2-1-1-1', '1-1-2-1', '1-2-1-1', '1-1-1-2']
+    filtered = []
+    for row in source:
+        key = get_4area_key(row)
+        if key in pattern:
+            filtered.append(row)
+    return filtered
+
+
+def get_5area_key(red):
+    area1 = list(range(1, 8))
+    area2 = list(range(8, 15))
+    area3 = list(range(15, 22))
+    area4 = list(range(22, 29))
+    area5 = list(range(29, 36))
+    area1_count, area2_count, area3_count, area4_count, area5_count = 0, 0, 0, 0, 0
+    for boll in red:
+        if (boll in area1):
+            area1_count += 1
+        elif boll in area2:
+            area2_count += 1
+        elif boll in area3:
+            area3_count += 1
+        elif boll in area4:
+            area4_count += 1
+        elif boll in area5:
+            area5_count += 1
+    return f'{area1_count}-{area2_count}-{area3_count}-{area4_count}-{area5_count}'
 
 
 def get_reds_5area(reds):
-    area1 = list(range(1, 8))
-    area2 = list(range(8, 15))
-    area3 = list(range(15, 22))
-    area4 = list(range(22, 29))
-    area5 = list(range(29, 36))  
     dic_case = {}
     for red in reds:
-        area1_count, area2_count, area3_count, area4_count, area5_count = 0, 0, 0, 0,0
-        for boll in red:
-            if (boll in area1):
-                area1_count += 1
-            elif boll in area2:
-                area2_count += 1
-            elif boll in area3:
-                area3_count += 1
-            elif boll in area4:
-                area4_count += 1
-            elif boll in area5:
-                area5_count += 1
-        key = f'{area1_count}-{area2_count}-{area3_count}-{area4_count}-{area5_count}'
+        key = get_5area_key(red)
         value = dic_case.get(key, 0)
         dic_case[key] = value+1
     return dic_case
 
 
-def get_reds_5area1(reds):
-    area1 = list(range(1, 8))
-    area2 = list(range(8, 15))
-    area3 = list(range(15, 22))
-    area4 = list(range(22, 29))
-    area5 = list(range(29, 36))  
-    result = []
-    for red in reds:
-        area1_count, area2_count, area3_count, area4_count, area5_count = 0, 0, 0, 0,0
-        for boll in red:
-            if (boll in area1):
-                area1_count += 1
-            elif boll in area2:
-                area2_count += 1
-            elif boll in area3:
-                area3_count += 1
-            elif boll in area4:
-                area4_count += 1
-            elif boll in area5:
-                area5_count += 1
-        area_result =[area1_count,area2_count,area3_count,area4_count,area5_count]
-        result.append(area_result)
-    return result
+def area5_filter(source):
+    pattern = ['1-1-1-1-1']
+    filtered = []
+    for row in source:
+        key = get_5area_key(row)
+        if key in pattern:
+            filtered.append(row)
+    return filtered
 
 
 def get_ac_count(inputs, nums):
@@ -212,51 +229,6 @@ def sum_filter(source, avg=90, diff=10):
     return result
 
 
-def area3_filter(source):
-    area1 = list(range(1, 13))
-    area2 = list(range(13, 25))
-    area3 = list(range(25, 36))
-    pattern = ['2-1-2', '2-2-1', '1-2-2', '1-3-1', '3-1-1', '1-1-3']
-    filtered = []
-    for row in source:
-        area1_count, area2_count, area3_count = 0, 0, 0
-        for boll in row:
-            if (boll in area1):
-                area1_count += 1
-            elif boll in area2:
-                area2_count += 1
-            elif boll in area3:
-                area3_count += 1
-        key = f'{area1_count}-{area2_count}-{area3_count}'
-        if key in pattern:
-            filtered.append(row)
-    return filtered
-
-
-def area4_filter(source):
-    area1 = [1, 2, 3, 7, 8, 9, 13, 14, 15]
-    area2 = [4, 5, 6, 10, 11, 12, 16, 17, 18]
-    area3 = [19, 20, 21, 25, 26, 27, 31, 32, 33]
-    area4 = [22, 23, 24, 28, 29, 30, 34, 35]
-    pattern = ['2-1-1-1', '1-1-2-1', '1-2-1-1', '1-1-1-2', '1-2-2-0']
-    filtered = []
-    for row in source:
-        area1_count, area2_count, area3_count, area4_count = 0, 0, 0, 0
-        for boll in row:
-            if (boll in area1):
-                area1_count += 1
-            elif boll in area2:
-                area2_count += 1
-            elif boll in area3:
-                area3_count += 1
-            elif boll in area4:
-                area4_count += 1
-        key = f'{area1_count}-{area2_count}-{area3_count}-{area4_count}'
-        if key in pattern:
-            filtered.append(row)
-    return filtered
-
-
 def ac_filter(source):
     filtered = []
     nums = 5
@@ -305,7 +277,7 @@ def draw_sum_plot(sums, avgs, color='red', title=''):
     plt.show()
 
 
-def draw_plot(data,title=''):
+def draw_plot(data, title=''):
     fig, ax = plt.subplots(figsize=(18, 3))
     ax.set(title=title)
     ax.plot(data)
